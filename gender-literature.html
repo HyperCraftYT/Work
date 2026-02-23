@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gender & Literature — A Critical Exploration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --ink: #1a1410;
+      --rust: #b85c38;
+      --sage: #6b7c5e;
+      --gold: #c9a84c;
+      --mist: #e8e2d6;
+      --dark-rust: #8c3e22;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 4rem;
+      background: rgba(245,240,232,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26,20,16,0.1);
+    }
+
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--rust);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--rust); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(184,92,56,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 3rem 6rem 4rem;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rust);
+      border: 1px solid var(--rust);
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5.5vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--rust);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: #5a5040;
+      max-width: 420px;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--ink);
+      color: var(--cream);
+      text-decoration: none;
+      padding: 1rem 2rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: background 0.25s, transform 0.2s;
+    }
+
+    .hero-cta:hover { background: var(--rust); transform: translateX(4px); }
+    .hero-cta svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .hero-right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 3rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .hero-book {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 3.5rem 3rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+      box-shadow: 24px 24px 0 var(--rust);
+    }
+
+    .hero-book cite {
+      display: block;
+      font-size: 0.75rem;
+      font-style: normal;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 1.5rem;
+    }
+
+    .hero-ornament {
+      position: absolute;
+      bottom: -2rem;
+      right: -2rem;
+      width: 160px;
+      height: 160px;
+      border: 1px solid rgba(184,92,56,0.3);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .hero-ornament::after {
+      content: '';
+      position: absolute;
+      inset: 20px;
+      border: 1px solid rgba(184,92,56,0.15);
+      border-radius: 50%;
+    }
+
+    /* ─── SECTION SHARED ─── */
+    section { padding: 7rem 4rem; }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 em { font-style: italic; color: var(--rust); }
+
+    p { margin-bottom: 1.2rem; color: #3a3228; font-size: 1rem; }
+
+    /* ─── WHY GENDER MATTERS ─── */
+    .why-gender {
+      background: var(--ink);
+      color: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .why-gender h2 { color: var(--cream); }
+    .why-gender h2 em { color: var(--gold); }
+    .why-gender p { color: #c8bfb0; }
+    .why-gender .section-label { color: var(--gold); }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .pillar {
+      padding: 1.8rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-top: 2px solid var(--rust);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .pillar:hover { border-color: var(--gold); transform: translateY(-4px); }
+
+    .pillar h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--cream);
+    }
+
+    .pillar p { font-size: 0.9rem; margin: 0; color: #a89e90; }
+
+    /* ─── WORKS ─── */
+    .works { background: var(--mist); }
+
+    .works-intro {
+      max-width: 600px;
+      margin-bottom: 4rem;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .work-card {
+      background: var(--cream);
+      padding: 2.5rem;
+      border-left: 4px solid var(--sage);
+      box-shadow: 0 2px 20px rgba(26,20,16,0.06);
+      transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .work-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle at 100% 0%, rgba(184,92,56,0.08), transparent 70%);
+    }
+
+    .work-card:hover {
+      box-shadow: 0 8px 40px rgba(26,20,16,0.12);
+      transform: translateY(-4px);
+      border-color: var(--rust);
+    }
+
+    .work-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .work-type {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--cream);
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+    }
+
+    .work-year {
+      font-size: 0.8rem;
+      color: var(--sage);
+      font-weight: 500;
+    }
+
+    .work-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--ink);
+    }
+
+    .work-author {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--rust);
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+    }
+
+    .work-card p { font-size: 0.95rem; margin: 0; color: #4a4035; }
+
+    .work-themes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.2rem;
+    }
+
+    .theme-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--sage);
+      color: var(--sage);
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    /* ─── IMPACT ─── */
+    .impact {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .impact-sticky {
+      position: sticky;
+      top: 120px;
+    }
+
+    .impact-points {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .impact-point {
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(26,20,16,0.1);
+    }
+
+    .impact-point:last-child { border-bottom: none; }
+
+    .impact-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(184,92,56,0.15);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .impact-point h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .impact-point p { font-size: 0.95rem; margin: 0; }
+
+    /* ─── PULL QUOTE ─── */
+    .pull-quote {
+      background: var(--rust);
+      color: var(--cream);
+      text-align: center;
+      padding: 6rem 4rem;
+    }
+
+    .pull-quote blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.4;
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .pull-quote cite {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    /* ─── CONCLUSION ─── */
+    .conclusion {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      background: var(--sage);
+      color: var(--cream);
+    }
+
+    .conclusion h2 { color: var(--cream); }
+    .conclusion p { color: rgba(245,240,232,0.8); }
+    .conclusion .section-label { color: var(--gold); }
+
+    .conclusion-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .conclusion-stat {
+      background: rgba(245,240,232,0.1);
+      padding: 2rem;
+      border-left: 3px solid var(--gold);
+    }
+
+    .conclusion-stat strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .conclusion-stat span { font-size: 0.85rem; opacity: 0.8; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink);
+      color: rgba(245,240,232,0.4);
+      text-align: center;
+      padding: 3rem 4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    footer span { color: var(--rust); }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: var(--rust);
+      margin-bottom: 2rem;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-left > * {
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-tag { animation-delay: 0.1s; }
+    .hero h1  { animation-delay: 0.25s; }
+    .hero-sub { animation-delay: 0.4s; }
+    .hero-cta { animation-delay: 0.55s; }
+    .hero-right { animation: fadeUp 0.9s 0.3s ease both; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 100px; }
+      .hero-left { padding: 4rem 2rem 2rem; }
+      .hero-right { padding: 2rem; }
+      .why-gender { grid-template-columns: 1fr; gap: 3rem; }
+      section { padding: 5rem 2rem; }
+      .works-grid { grid-template-columns: 1fr; }
+      .impact { grid-template-columns: 1fr; gap: 3rem; }
+      .impact-sticky { position: static; }
+      .conclusion { grid-template-columns: 1fr; gap: 3rem; }
+      .pillars { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-brand">Gender &amp; the Literary Canon</span>
+    <ul class="nav-links">
+      <li><a href="#why">Why It Matters</a></li>
+      <li><a href="#works">Key Works</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#conclusion">Conclusion</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-left">
+      <span class="hero-tag">A Literary Exploration</span>
+      <h1>How <em>Gender</em><br>Shapes the<br>Written Word</h1>
+      <p class="hero-sub">From Renaissance sonnets to mid-century crime fiction, gender has long been literature's most enduring and contested lens — shaping who writes, who reads, and whose stories are told.</p>
+      <a href="#why" class="hero-cta">
+        Begin Reading
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="hero-book">
+          "Literature is not exhausted in the moment of its production; it continues to address and provoke us across centuries, and gender is at the heart of that conversation."
+          <cite>— Critical Literary Theory</cite>
+        </div>
+        <div class="hero-ornament"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- WHY GENDER -->
+  <section class="why-gender" id="why">
+    <div>
+      <p class="section-label">Foundation</p>
+      <h2>Why <em>Gender</em> Is Central to Literature</h2>
+      <div class="divider"></div>
+      <p>Gender is not merely a biographical detail about authors or characters — it is a structuring principle that organises power, language, narrative perspective, and meaning itself. When we read through a gender-conscious lens, we uncover how texts have historically constructed, enforced, or challenged social norms around masculinity and femininity.</p>
+      <p>From the earliest epic poems to contemporary fiction, literature has been a primary arena in which societies negotiate what it means to be a man or a woman, to desire or be desired, to lead or to submit. Understanding gender in literature is therefore inseparable from understanding the cultures and power structures that produced these texts.</p>
+      <p>Furthermore, gender awareness allows us to recognise whose voices have been amplified — and whose have been systematically silenced — within the literary canon, prompting essential questions about representation, authority, and the very act of writing itself.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <h3>Power &amp; Authority</h3>
+        <p>Who narrates, who commands, and who is silent — gender dictates the architecture of power within texts.</p>
+      </div>
+      <div class="pillar">
+        <h3>Identity &amp; Self</h3>
+        <p>Characters' sense of self is shaped profoundly by gendered expectations imposed by their societies and authors.</p>
+      </div>
+      <div class="pillar">
+        <h3>Canon &amp; Access</h3>
+        <p>The literary canon has historically excluded women's voices, making reclamation and re-reading acts of justice.</p>
+      </div>
+      <div class="pillar">
+        <h3>Language Itself</h3>
+        <p>Gendered language structures thought — the very words available to characters shape what can be expressed or imagined.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY WORKS -->
+  <section class="works" id="works">
+    <div class="works-intro">
+      <p class="section-label">Literary Analysis</p>
+      <h2>Four Works That <em>Define</em> the Conversation</h2>
+      <div class="divider"></div>
+      <p>Across centuries and genres, these works reveal how gender is simultaneously a site of oppression, desire, philosophical inquiry, and subtle subversion.</p>
+    </div>
+
+    <div class="works-grid">
+
+      <div class="work-card">
+        <div class="work-meta">
+          <span class="work-type">Short Story</span>
+          <span class="work-year">1953</span>
+        </div>
+        <h3>Lamb to the Slaughter</h3>
+        <p class="work-author">Roald Dahl</p>
+        <p>Dahl's unsettling domestic thriller presents Mary Maloney as the archetypal devoted housewife — meek, attentive, utterly defined by her husband. Yet when Patrick announces he is leaving her, Mary commits murder with a frozen leg of lamb, then coolly manipulates the investigating officers into consuming the evidence. The story is a savage deconstruction of feminine docility: the very performance of wifely virtue — offering food, weeping convincingly, acting the helpless widow — becomes Mary's weapon. Dahl weaponises the male gaze against itself; the detectives, unable to see past the domestic feminine ideal, cannot conceive of Mary as a killer. Gender roles here are not broken but bent into lethal tools, suggesting that the domestic sphere, far from being powerless, conceals a capacity for extreme agency when pushed to its limits.</p>
+        <div class="work-themes">
+          <span class="theme-tag">Domesticity</span>
+          <span class="theme-tag">Female Agency</span>
+          <span class="theme-tag">Subversion</span>
+          <span class="theme-tag">The Male Gaze</span>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-meta">
+          <span class="work-type">Poem</span>
+          <span class="work-year">1684</span>
+        </div>
+        <h3>Love Armed</h3>
+        <p class="work-author">Aphra Behn</p>
+        <p>Written by one of England's first professional female authors, <em>Love Armed</em> radically reformulates the Petrarchan lyric tradition by granting women the position of the active, desiring subject. Where male poets typically cast women as passive muses, Behn inverts the dynamic: her speaker dissects the power mechanics of love with wit and authority, describing how Cupid strips the lover of peace, sighs, and strength to arm himself. The poem's speaker is fully in command of her analysis, demonstrating emotional intelligence as a form of power. Behn's very existence as a published female poet in Restoration England was itself a gender transgression, and <em>Love Armed</em> embodies her refusal to accept that desire, wit, or literary authority were exclusively masculine provinces.</p>
+        <div class="work-themes">
+          <span class="theme-tag">Female Authorship</span>
+          <span class="theme-tag">Desire &amp; Power</span>
+          <span class="theme-tag">Inversion</span>
+          <span class="theme-tag">Restoration</span>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-meta">
+          <span class="work-type">Philosophical Poem</span>
+          <span class="work-year">1733–34</span>
+        </div>
+        <h3>An Essay on Man</h3>
+        <p class="work-author">Alexander Pope</p>
+        <p>Pope's grand philosophical poem operates within an Enlightenment framework that presents a universal, rational human being — and that universality is implicitly, relentlessly male. The "proper study of mankind" is <em>Man</em>, and the poem's confident claim to speak for all humanity reveals how deeply gendered the Enlightenment project was. Women are largely absent from Pope's cosmological scheme: the capacity for reason, philosophical inquiry, and cosmic self-reflection is coded masculine. Reading the poem through a gender lens exposes how Enlightenment humanism, despite its universalist rhetoric, constructed knowledge and rational subjectivity as male domains. The text thus illustrates how even literature that never explicitly addresses gender can be profoundly shaped by gendered assumptions embedded in language and intellectual tradition.</p>
+        <div class="work-themes">
+          <span class="theme-tag">Universalism</span>
+          <span class="theme-tag">Enlightenment</span>
+          <span class="theme-tag">Reason &amp; Gender</span>
+          <span class="theme-tag">Exclusion</span>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-meta">
+          <span class="work-type">Sonnet</span>
+          <span class="work-year">c. 1609</span>
+        </div>
+        <h3>Sonnet 18</h3>
+        <p class="work-author">William Shakespeare</p>
+        <p>"Shall I compare thee to a summer's day?" opens one of literature's most celebrated love poems — and one of its most gender-complex. Addressed most likely to a young man, the sonnet challenges the heteronormative assumptions later readers projected onto it. The beloved is feminised through conventional beauty metaphors, yet the addressee is male, destabilising the fixed gender positions of the Petrarchan tradition. Moreover, the poet claims godlike creative authority: it is his verse — not the beloved's own qualities — that immortalises them. The power relation is therefore primarily between the male poet and his art; the beloved, regardless of gender, is rendered passive and dependent on the speaker's pen. The sonnet thus encodes both same-sex desire and a gendered hierarchy of creator and subject that transcends any single reading.</p>
+        <div class="work-themes">
+          <span class="theme-tag">Same-Sex Desire</span>
+          <span class="theme-tag">Creative Authority</span>
+          <span class="theme-tag">Petrarchan Tradition</span>
+          <span class="theme-tag">Immortality</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote">
+    <blockquote>"A woman must have money and a room of her own if she is to write fiction."</blockquote>
+    <cite>Virginia Woolf, A Room of One's Own (1929)</cite>
+  </div>
+
+  <!-- IMPACT -->
+  <section class="impact" id="impact">
+    <div class="impact-sticky">
+      <p class="section-label">Broader Significance</p>
+      <h2>The Lasting <em>Impact</em> of Gender-Conscious Reading</h2>
+      <div class="divider"></div>
+      <p>Understanding gender in literature is not merely an academic exercise. It transforms how we interpret stories, history, and our own lives — and challenges us to imagine more equitable futures.</p>
+    </div>
+    <div class="impact-points">
+      <div class="impact-point">
+        <div class="impact-num">01</div>
+        <h3>Expanding the Canon</h3>
+        <p>Gender-conscious criticism has recovered hundreds of overlooked female authors — from Aphra Behn to Zora Neale Hurston — who were marginalised not by lack of talent but by structural exclusion from publishing, education, and cultural authority. Reclaiming their work fundamentally changes our understanding of literary history.</p>
+      </div>
+      <div class="impact-point">
+        <div class="impact-num">02</div>
+        <h3>Challenging Stereotypes in Culture</h3>
+        <p>Literature shapes cultural attitudes. Works like <em>Lamb to the Slaughter</em> expose how gender stereotypes operate — the same docility that society demands of women is weaponised to render them invisible as agents. Recognising these patterns in fiction helps readers recognise and challenge them in life.</p>
+      </div>
+      <div class="impact-point">
+        <div class="impact-num">03</div>
+        <h3>Revealing Hidden Power Structures</h3>
+        <p>Pope's <em>Essay on Man</em> illustrates how power can be embedded invisibly in language and genre conventions. Gender criticism teaches us to read these invisible structures — to ask not just what a text says, but whose authority it assumes, whose experience it takes as universal, and who it leaves out.</p>
+      </div>
+      <div class="impact-point">
+        <div class="impact-num">04</div>
+        <h3>Opening Space for New Voices</h3>
+        <p>When Shakespeare's Sonnet 18 is read as potentially addressing a man, it opens conversations about desire, identity, and representation that resonate powerfully with LGBTQ+ readers today. Literature's capacity to sustain multiple gender readings across centuries demonstrates its unique power as a space for self-recognition and inclusion.</p>
+      </div>
+      <div class="impact-point">
+        <div class="impact-num">05</div>
+        <h3>Inspiring Future Literature</h3>
+        <p>Each generation of writers inherits and responds to the gender politics of those before them. Behn's audacity made it imaginable for women to write professionally; her legacy runs through Jane Austen, George Eliot, and into the feminist fiction of the twentieth century. Gender-conscious reading traces these living lineages.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCLUSION -->
+  <section class="conclusion" id="conclusion">
+    <div>
+      <p class="section-label">Conclusion</p>
+      <h2>Literature as a <em>Mirror</em> and a Map</h2>
+      <div class="divider" style="background:var(--gold);"></div>
+      <p>The four works examined here — spanning nearly four centuries — reveal that gender has never been incidental to literature. It is structural. It shapes who speaks and who is silenced, what counts as knowledge and what is dismissed as sentiment, whose love is celebrated and whose is concealed.</p>
+      <p>Mary Maloney's monstrous domesticity, Aphra Behn's unapologetic desire, Pope's implicit masculine universalism, and Shakespeare's fluid-gendered beloved each offer a different facet of the same essential truth: that literature is always already a gendered practice, produced within and commenting upon the gender norms of its time.</p>
+      <p>To read literature through the lens of gender is therefore to read it more fully — to hear its silences, recover its missing voices, and understand the extraordinary power of stories to both constrain and liberate the human experience.</p>
+    </div>
+    <div class="conclusion-visual">
+      <div class="conclusion-stat">
+        <strong>400+</strong>
+        <span>Years of literary history examined across these four foundational works</span>
+      </div>
+      <div class="conclusion-stat">
+        <strong>4</strong>
+        <span>Distinct genres — short story, lyric poem, philosophical essay, sonnet</span>
+      </div>
+      <div class="conclusion-stat">
+        <strong>∞</strong>
+        <span>Readings made possible by gender-conscious literary criticism</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Gender &amp; Literature — A Critical Exploration &nbsp;·&nbsp; Works: <span>Dahl · Behn · Pope · Shakespeare</span></p>
+  </footer>
+
+</body>
+</html>
